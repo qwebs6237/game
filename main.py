@@ -32,8 +32,35 @@ class Player2(GameSprite):
 
 
 class Ball(GameSprite):
+    def __init__(self, img, x, y, speed, w, h, speed_x, speed_y):
+        super().__init__(img, x, y, speed, w, h)
+        self.speed_x = speed_x
+        self.speed_y = speed_y
+
     def move(self):
-        self.rect.y -= self.speed
+        global a
+        global b
+        self.rect.x += self.speed_x
+        self.rect.y += self.speed_y
+        if self.rect.colliderect(player1.rect) or self.rect.colliderect(player2.rect):
+            self.speed_x *= -1
+        elif self.rect.x > 600:
+            self.rect.x = 250
+            self.speed_x *= -1
+            a += 1
+            print(a)
+        elif self.rect.y < 0 :
+            self.rect.y = 0
+            self.speed_y *= -1
+        elif self.rect.x < 0:
+            self.rect.x = 250
+            self.speed_x *= -1
+            b += 1
+            print(b)
+        elif self.rect.y > 400 :
+            self.rect.y = 400
+            self.speed_y *= -1
+       
 
 window = display.set_mode((700, 500))
 display.set_caption('ping pong')
@@ -44,9 +71,10 @@ background = transform.scale(
 
 player1 = Player1('dask.png', 10, 10, 1, 40, 130)
 player2 = Player2('dask.png', 700 - 50, 10, 1, 40, 130)
-ball = Ball('player.png', 350, 250, 5, 100, 100)
+ball = Ball('player.png', 350, 250, 1, 100, 100, 1, -1)
 
-
+a = 0
+b = 0
 game = True
 while game:
     for e in event.get():
@@ -56,7 +84,7 @@ while game:
     keys = key.get_pressed()
     player1.move_p1(keys)
     player2.move_p2(keys)
-    ball.move
+    ball.move()
 
     window.blit(background, (0, 0))
 
