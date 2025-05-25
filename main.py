@@ -1,5 +1,5 @@
 from pygame import *
-from pygame.constants import K_RIGHT, K_LEFT
+from pygame.constants import BUTTON_LEFT
 
 
 class GameSprite(sprite.Sprite):
@@ -21,7 +21,6 @@ class Player1(GameSprite):
             self.rect.y -= self.speed
         if keys[K_d] and self.rect.y < 500 - 10 - 130:
             self.rect.y += self.speed
-
 
 class Player2(GameSprite):
     def move_p2(self, keys):
@@ -92,10 +91,22 @@ background3 = transform.scale(
 background4 = transform.scale(
     image.load('player2win.png'),
     (700, 500))
+background5 = transform.scale(
+    image.load('gvfon.png'),
+    (700, 500))
+background6 = transform.scale(
+    image.load('Lava.png'),
+    (700, 500))
+background7 = transform.scale(
+    image.load('kosmos.png'),
+    (700, 500))
+background8 = transform.scale(
+    image.load('cave.png'),
+    (700, 500))
 
 
-player1 = Player1('dask.png', 10, 10, 1, 40, 130)
-player2 = Player2('dask.png', 700 - 50, 10, 1, 40, 130)
+player1 = Player1('dask (2).png', 10, 10, 1, 40, 130)
+player2 = Player2('dask (2).png', 700 - 50, 10, 1, 40, 130)
 ball = Ball('player.png', 350, 250, 5, 100, 100, 1, 1)
 
 font.init()
@@ -132,13 +143,95 @@ while game:
 
     elif cod == 0:
         if keys[K_f]:
-            cod = 1
+            cod = 4
         window.blit(background2, (0, 0))
 
     elif cod == 2:
         window.blit(background3, (0, 0))
     elif cod == 3:
         window.blit(background4, (0, 0))
+    elif cod == 4:
+        window.blit(background5, (0, 0))
+        if keys[K_KP1]:
+            cod = 1
+        if keys[K_KP2]:
+            cod = 5
+        if keys[K_KP3]:
+            cod = 6
+        if keys[K_KP4]:
+            cod = 7
+    elif cod == 5:
+        player1.move_p1(keys)
+        player2.move_p2(keys)
+        ball.move()
+
+        window.blit(background6, (0, 0))
+
+        player1.reset()
+        player2.reset()
+        ball.reset()
+        text_w = my_font.render(str(a), True, (255, 255, 255))
+        text_e = my_font.render(str(b), True, (255, 255, 255))
+        window.blit(text_w, (100, 60))
+        window.blit(text_e, (500, 60))
+        if a == 5:
+            cod = 2
+        if b == 5:
+            cod = 3
+    elif cod == 6:
+        player1.move_p1(keys)
+        player2.move_p2(keys)
+        ball.move()
+
+        window.blit(background6, (0, 0))
+
+        player1.reset()
+        player2.reset()
+        ball.reset()
+        text_w = my_font.render(str(a), True, (255, 255, 255))
+        text_e = my_font.render(str(b), True, (255, 255, 255))
+        window.blit(text_w, (100, 60))
+        window.blit(text_e, (500, 60))
+        if a == 5:
+            cod = 2
+        if b == 5:
+            cod = 3
+    elif cod == 7:
+        player1.move_p1(keys)
+        player2.move_p2(keys)
+        ball.move()
+
+        window.blit(background8, (0, 0))
+
+        player1.reset()
+        player2.reset()
+        ball.reset()
+        text_w = my_font.render(str(a), True, (255, 255, 255))
+        text_e = my_font.render(str(b), True, (255, 255, 255))
+        window.blit(text_w, (100, 60))
+        window.blit(text_e, (500, 60))
+        if a == 5:
+            cod = 2
+        if b == 5:
+            cod = 3
+    elif cod == 8:
+        player1.move_p1(keys)
+        player2.move_p2(keys)
+        ball.move()
+
+        window.blit(background8, (0, 0))
+
+        player1.reset()
+        player2.reset()
+        ball.reset()
+        text_w = my_font.render(str(a), True, (255, 255, 255))
+        text_e = my_font.render(str(b), True, (255, 255, 255))
+        window.blit(text_w, (100, 60))
+        window.blit(text_e, (500, 60))
+        if a == 5:
+            cod = 2
+        if b == 5:
+            cod = 3
 
     display.update()
     clock.tick(220)
